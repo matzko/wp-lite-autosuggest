@@ -8,14 +8,9 @@ class WP_Lite_Autosuggest_Control
 			include_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'wp-json-rpc-api' . DIRECTORY_SEPARATOR . 'wp-json-rpc-api.php';
 		}
 
+		include_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'json-server-class.php';
+
 		load_wp_json_rpc_api();
-
-		add_action( 'init', array($this, 'event_init' ) );
-	}
-
-	public function event_init()
-	{
-
 	}
 }
 
