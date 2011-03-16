@@ -45,8 +45,16 @@ class WP_Lite_Autosuggest_Model
  */
 class WP_Lite_Autosuggest_Query
 {
-	
+	/**
+	 * Reflecting the type of query: 'post', 'term', 'user', or 'custom'
+	 */
+	public $query_type = 'post';
+	public $post_types = array( 'post', 'page' );
 
+	public function __construct()
+	{
+
+	}
 }
 
 function load_wp_lite_autosuggest()
