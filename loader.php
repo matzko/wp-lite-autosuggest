@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WordPress Lite Autosuggest
-Plugin URI:
+Plugin URI: http://austinmatzko.com/wordpress-plugins/wp-lite-autosuggest/
 Description: Provide a lightweight autosuggest tool for WordPress.
 Version: 1.0
 Author: Austin Matzko
