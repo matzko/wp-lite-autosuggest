@@ -17,7 +17,7 @@ class WP_Lite_Autosuggest_Server extends WP_JSON_RPC_Server
 				__('Invalid method parameters: wpLiteAutosuggest.submitQuery requires that a query text be specified.', 'wp-lite-autosuggest')
 			);
 		} else {
-			$results = $wp_lite_autosuggest->get_results_from_query( $args->{'query'} ); 
+			$results = $wp_lite_autosuggest->get_results_from_query( $args->{'query'}, get_object_vars( $args ) ); 
 			if ( is_wp_error( $results ) ) {
 				return $results;
 			} else {
