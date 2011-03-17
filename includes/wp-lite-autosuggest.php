@@ -27,6 +27,7 @@ class WP_Lite_Autosuggest_Control
 	{
 		$query_obj = $this->model->build_query( $extras );	
 		$query_obj->query = $query;
+		$results = $this->model->perform_query( $query_obj );
 	}
 }
 
@@ -53,7 +54,7 @@ class WP_Lite_Autosuggest_Model
 	public function perform_query( WP_Lite_Autosuggest_Query $qry )
 	{
 		$qry = apply_filters( 'wpl_autosuggest_query_object', $qry );
-		$results = $qry->execute();
+		return $qry->execute();
 	}
 }
 
@@ -87,6 +88,7 @@ class WP_Lite_Autosuggest_Query
 			'showposts' => $this->limit,
 			'post_status' => implode(',', $this->post_statuses ),
 			'post_type' => $this->post_types,
+			's' => $this->query,
 		) );
 
 		$results = new WP_Lite_Autosuggest_Query_Results; 
