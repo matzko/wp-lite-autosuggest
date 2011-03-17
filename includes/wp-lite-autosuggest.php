@@ -53,6 +53,8 @@ class WP_Lite_Autosuggest_Model
 	public function perform_query( WP_Lite_Autosuggest_Query $qry )
 	{
 		$results = new WP_Lite_Autosuggest_Query_Results; 
+
+		$qry = apply_filters( 'wpl_autosuggest_query', $qry );
 	}
 }
 
