@@ -18,9 +18,16 @@ class WP_Lite_Autosuggest_Server extends WP_JSON_RPC_Server
 			);
 		} else {
 			$results = $wp_lite_autosuggest->get_results_from_query( $args->{'query'}, get_object_vars( $args ) ); 
+			$json_response_wrap = array();
+			foreach( $results as $link ) {
+				$json_response_wrap[] = $link;
+			}
 			if ( is_wp_error( $results ) ) {
 				return $results;
 			} else {
+				return array(
+					'results' => $json_response_wrap,
+				);
 			}
 		}
 
