@@ -52,9 +52,8 @@ class WP_Lite_Autosuggest_Model
 	 */
 	public function perform_query( WP_Lite_Autosuggest_Query $qry )
 	{
-		$results = new WP_Lite_Autosuggest_Query_Results; 
-
-		$qry = apply_filters( 'wpl_autosuggest_query', $qry );
+		$qry = apply_filters( 'wpl_autosuggest_query_object', $qry );
+		$results = $qry->execute();
 	}
 }
 
@@ -63,6 +62,7 @@ class WP_Lite_Autosuggest_Model
  */
 class WP_Lite_Autosuggest_Query
 {
+	public $limit = 20;
 	/**
 	 * The text to search for
 	 */
@@ -72,11 +72,37 @@ class WP_Lite_Autosuggest_Query
 	 * Reflecting the type of query: 'post', 'term', 'user', or 'custom'
 	 */
 	public $query_type = 'post';
+	public $post_statuses = array( 'publish' );
 	public $post_types = array( 'post', 'page' );
 
 	public function __construct()
 	{
 
+	}
+
+	public function execute()
+	{
+		if ( 'post' == $query_type ) {
+		$my_query = new WP_Query( array( 
+			'showposts' => $this->limit,
+			'post_status' => implode(',', $this->post_statuses ),
+			'post_type' => $this->post_types,
+		) );
+
+		$results = new WP_Lite_Autosuggest_Query_Results; 
+
+		while( $my_query->have_posts() ) {
+			$my_query->the_post();
+			$link = new WP_Lite_Autosuggest_Query_Link;
+			$link->url = get_permalink();
+			$link->excerpt = get_the_excerpt();
+			$link->content = get_the_content();
+			$link->title = get_the_title();
+
+			$results->add_result( $link );
+		}
+
+		return $results;
 	}
 }
 
